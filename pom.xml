@@ -20,37 +20,38 @@
 	<description>API de Funcionários com Spring Boot</description>
 
 	<properties>
-		<java.version>21</java.version>
+		<!-- Alterado de 21 para 25 -->
+		<java.version>25</java.version>
 	</properties>
 
 	<dependencies>
 
-		<!-- Spring Web: para criar a API REST -->
+		<!-- Spring Web -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
-		<!-- Spring Data JPA: para acessar o banco de dados -->
+		<!-- Spring Data JPA -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 
-		<!-- Validação: @NotBlank, @Min, @NotNull etc -->
+		<!-- Validação -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
 
-		<!-- H2: banco de dados em memória para testes -->
+		<!-- H2 -->
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
 
-		<!-- Swagger / SpringDoc compatível com Spring Boot 3.5.x -->
+		<!-- Swagger -->
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
