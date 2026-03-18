@@ -27,7 +27,9 @@ public class DepartamentoService {
 
     public DepartamentoResponse buscarPorId(Long id) {
         Departamento departamento = repository.findById(id)
-                .orElseThrow(() -> new RegistroNaoEncontradoException("Departamento não encontrado com id: " + id));
+                .orElseThrow(() ->
+                        new RegistroNaoEncontradoException(
+                                "Departamento não encontrado com id: " + id));
         return toResponse(departamento);
     }
 
@@ -39,7 +41,9 @@ public class DepartamentoService {
 
     public DepartamentoResponse atualizar(Long id, DepartamentoRequest request) {
         Departamento existente = repository.findById(id)
-                .orElseThrow(() -> new RegistroNaoEncontradoException("Departamento não encontrado com id: " + id));
+                .orElseThrow(() ->
+                        new RegistroNaoEncontradoException(
+                                "Departamento não encontrado com id: " + id));
         existente.setNome(request.getNome());
         Departamento atualizado = repository.save(existente);
         return toResponse(atualizado);
@@ -47,12 +51,14 @@ public class DepartamentoService {
 
     public void deletar(Long id) {
         Departamento existente = repository.findById(id)
-                .orElseThrow(() -> new RegistroNaoEncontradoException("Departamento não encontrado com id: " + id));
+                .orElseThrow(() ->
+                        new RegistroNaoEncontradoException(
+                                "Departamento não encontrado com id: " + id));
         repository.delete(existente);
     }
 
     private DepartamentoResponse toResponse(Departamento d) {
-        int qtd = d.getFuncionarios() == null ? 0 : d.getFuncionarios().size();
-        return new DepartamentoResponse(d.getId(), d.getNome(), qtd);
+        int quantidade = d.getFuncionarios() == null ? 0 : d.getFuncionarios().size();
+        return new DepartamentoResponse(d.getId(), d.getNome(), quantidade);
     }
 }

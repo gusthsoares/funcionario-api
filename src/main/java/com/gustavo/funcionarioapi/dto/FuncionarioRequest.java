@@ -17,7 +17,6 @@ public class FuncionarioRequest {
     @Min(value = 0, message = "Salário não pode ser negativo")
     private Double salario;
 
-    // departamento que esse funcionário pertence
     @NotNull(message = "Departamento é obrigatório")
     private Long departamentoId;
 

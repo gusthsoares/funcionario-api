@@ -3,40 +3,28 @@ package com.gustavo.funcionarioapi.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
-@ControllerAdvice
+@RestControllerAdvice
 public class ApiExceptionHandler {
 
     @ExceptionHandler(RegistroNaoEncontradoException.class)
-    public ResponseEntity<?> handleRegistroNaoEncontrado(RegistroNaoEncontradoException ex) {
-        Map<String, Object> body = new HashMap<>();
-        body.put("timestamp", LocalDateTime.now());
-        body.put("status", HttpStatus.NOT_FOUND.value());
-        body.put("erro", "Recurso não encontrado");
-        body.put("mensagem", ex.getMessage());
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(body);
+    public ResponseEntity<Map<String, String>> handleNotFound(RegistroNaoEncontradoException ex) {
+        Map<String, String> erro = new HashMap<>();
+        erro.put("erro", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<?> handleValidacao(MethodArgumentNotValidException ex) {
-        Map<String, Object> body = new HashMap<>();
-        body.put("timestamp", LocalDateTime.now());
-        body.put("status", HttpStatus.BAD_REQUEST.value());
-        body.put("erro", "Dados inválidos");
-
-        Map<String, String> errosCampos = new HashMap<>();
-        ex.getBindingResult().getFieldErrors().forEach(fieldError ->
-                errosCampos.put(fieldError.getField(), fieldError.getDefaultMessage())
+    public ResponseEntity<Map<String, String>> handleValidation(MethodArgumentNotValidException ex) {
+        Map<String, String> erros = new HashMap<>();
+        ex.getBindingResult().getFieldErrors().forEach(field ->
+                erros.put(field.getField(), field.getDefaultMessage())
         );
-
-        body.put("erros", errosCampos);
-
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erros);
     }
 }

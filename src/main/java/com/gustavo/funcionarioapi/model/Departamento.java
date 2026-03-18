@@ -1,6 +1,10 @@
 package com.gustavo.funcionarioapi.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +17,6 @@ public class Departamento {
 
     private String nome;
 
-    // Um departamento tem vários funcionários
     @OneToMany(mappedBy = "departamento")
     private List<Funcionario> funcionarios = new ArrayList<>();
 
